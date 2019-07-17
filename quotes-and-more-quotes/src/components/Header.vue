@@ -8,6 +8,9 @@
 </template>
 
 <script>
+
+import { eventBus } from '../main.js'
+
 export default {
     data(){
         return{
@@ -16,7 +19,8 @@ export default {
     },
     props: {
         quoteCounter: {
-            type: Number
+            type: Number,
+            default: 1
         }
     },
     computed: {
@@ -24,6 +28,11 @@ export default {
             let widthPercentage = this.quoteCounter*10;
             return 'width: ' + widthPercentage + '%';
         }
+    },
+    created() {
+        eventBus.$on('numberOfQuotesChange', (numQuotes) => {
+            this.quoteCounter = numQuotes;
+        })
     },
 }
 </script>

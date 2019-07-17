@@ -1,7 +1,8 @@
 <template>
     <div class="container">
-        <heading :quoteCounter="numberOfQuotes"></heading>
-        <button @click="numberOfQuotes++">Quote++</button>
+        <heading :quoteCounter="getArrayLength"></heading>
+        <addQuote></addQuote>
+        <quotes-display></quotes-display>
         <component :is="'infoBlock'">
             Info: Click on a Quote to delete it
         </component>
@@ -9,18 +10,18 @@
 </template>
 
 <script>
+    import { eventBus } from './main.js';
     import Header from './components/Header.vue';
     import InfoBlock from './components/InfoBlock.vue';
+    import AddQuote from './components/AddQuote.vue';
+    import QuotesDisplay from './components/QuotesDisplay.vue';
 
     export default {
-        data(){
-            return{
-                numberOfQuotes: 0
-            }
-        },
         components: {
             heading: Header,
-            infoBlock: InfoBlock
+            infoBlock: InfoBlock,
+            addQuote: AddQuote,
+            quotesDisplay: QuotesDisplay
         }
     }
 </script>
