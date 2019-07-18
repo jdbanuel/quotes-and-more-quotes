@@ -2,7 +2,7 @@
     <div>
         <h3>Quotes Added</h3>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" v-bind:style="getProgressBarWidth" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ quoteCounter }}/10</div>
+            <div class="progress-bar" role="progressbar" v-bind:style="getProgressBarWidth" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ quoteCounterVal }}/10</div>
         </div>
     </div>
 </template>
@@ -14,7 +14,7 @@ import { eventBus } from '../main.js'
 export default {
     data(){
         return{
-
+            quoteCounterVal: this.quoteCounter
         }
     },
     props: {
@@ -25,13 +25,13 @@ export default {
     },
     computed: {
         getProgressBarWidth: function(){
-            let widthPercentage = this.quoteCounter*10;
+            let widthPercentage = this.quoteCounterVal*10;
             return 'width: ' + widthPercentage + '%';
         }
     },
     created() {
         eventBus.$on('numberOfQuotesChange', (numQuotes) => {
-            this.quoteCounter = numQuotes;
+            this.quoteCounterVal = numQuotes;
         })
     },
 }

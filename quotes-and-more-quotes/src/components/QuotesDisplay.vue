@@ -1,12 +1,15 @@
 <template>
-    <div>
-        <button @click="updateNumQuotes">Click me</button>
+    <div class="flexbox-container">
+        <div v-for="(item) in quoteArray" :key="item.quoteID">
+            Quote: {{ item.quoteString }} - ID: {{ item.quoteID }}
+        </div>
     </div>
 </template>
 
 <script>
 
 import { eventBus } from '../main.js';
+import { QuoteItem } from './QuoteItem.vue';
 
 export default {
     data(){
@@ -19,11 +22,8 @@ export default {
             ],
         }
     },
-    methods: {
-
-    },
-    computed: {
-        
+    components: {
+        quoteItem: QuoteItem
     },
     created() {
         eventBus.$on('newQuoteBeingAdded', (quote, quoteID) => {
@@ -33,6 +33,8 @@ export default {
                     'quoteID':quoteID, 
                     'quoteString': quote
                 }];
+
+                eventBus.updateNumberOfQuotes(this.quoteArray.length);
             }
         })
     },
@@ -42,6 +44,11 @@ export default {
 <style scoped>
     div.alert.alert-info {
         text-align: center;
+    }
+
+    .flexbox-container {
+        box-sizing: border-box;
+        display: flex;
     }
 
 </style>
