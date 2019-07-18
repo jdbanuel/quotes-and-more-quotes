@@ -3,8 +3,8 @@ import App from './App.vue'
 
 export const eventBus = new Vue({
 	methods: {
-		getQuote(quote){
-			this.$emit('newQuoteBeingAdded', quote);
+		getQuote(quote, quoteID){
+			this.$emit('newQuoteBeingAdded', quote, quoteID);
     },
     updateNumberOfQuotes(numQuotes){
       this.$emit('numberOfQuotesChange', numQuotes);

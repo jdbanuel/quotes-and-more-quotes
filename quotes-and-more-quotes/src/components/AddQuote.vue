@@ -18,13 +18,15 @@ import { eventBus } from '../main';
 export default {
     data(){
         return {
-            quoteString: ""
+            quoteString: "",
+            quoteID: 0
         }
     },
     methods: {
         addQuoteToArray: function(){
             if (this.quoteString !== ""){
-                eventBus.getQuote(this.quoteString);
+                ++this.quoteID;
+                eventBus.getQuote(this.quoteString,this.quoteID);
                 this.quoteString = ""
             }
         }
