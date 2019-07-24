@@ -1,15 +1,17 @@
 <template>
     <div class="flexbox-container">
-        <div v-for="(item) in quoteArray" :key="item.quoteID">
-            Quote: {{ item.quoteString }} - ID: {{ item.quoteID }}
-        </div>
+        <quoteItem class="quote-item"
+            :quoteID="item.quoteID" 
+            v-for="(item) in quoteArray" :key="item.quoteID">
+             {{ item.quoteString }} 
+        </quoteItem>
     </div>
 </template>
 
 <script>
 
 import { eventBus } from '../main.js';
-import { QuoteItem } from './QuoteItem.vue';
+import QuoteItem from './QuoteItem.vue';
 
 export default {
     data(){
@@ -36,6 +38,13 @@ export default {
 
                 eventBus.updateNumberOfQuotes(this.quoteArray.length);
             }
+        });
+
+        eventBus.$on('deletingQuote', (quoteID) => {
+            let index = this.quoteArray.findIndex(item => item.quoteID === quoteID);
+            console.log(index);
+            this.quoteArray.splice(index,1);
+            eventBus.updateNumberOfQuotes(this.quoteArray.length);
         })
     },
 }
@@ -49,6 +58,18 @@ export default {
     .flexbox-container {
         box-sizing: border-box;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .quote-item {
+        font-family: 'Arizonia';
+        border: solid 1px gray;
+        font-size: 2em;
+        width: 300px;
+        min-height: 150px;
+        padding: 20px;
+        margin: 20px 20px;
     }
 
 </style>

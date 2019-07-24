@@ -8,6 +8,9 @@ export const eventBus = new Vue({
     },
     updateNumberOfQuotes(numQuotes){
       this.$emit('numberOfQuotesChange', numQuotes);
+    },
+    sendQuoteToDelete(quoteID){
+      this.$emit('deletingQuote', quoteID);
     }
 	}
 })
